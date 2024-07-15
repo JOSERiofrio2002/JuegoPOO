@@ -1,11 +1,23 @@
 "use strict";
+
 const canvas = document.getElementById("tetris");
 const context = canvas.getContext("2d");
-let dropInterval = level(); 
-
+let dropInterval = level();
 let isGameRunning = false;
 
 context.scale(20, 20);
+
+// Cargar y dibujar la imagen de fondo
+const backgroundImage = new Image();
+backgroundImage.src = 'fondoTetris.jpg';  // Cambia esta ruta por la de tu imagen
+
+backgroundImage.onload = function() {
+    drawBackgroundImage();
+};
+
+function drawBackgroundImage() {
+    context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+}
 
 // Función para determinar el nivel de juego
 function level() {
@@ -325,8 +337,7 @@ function arenaSweep() {
 
 // Función para dibujar el estado del juego
 function draw() {
-    context.fillStyle = "#F5F5F5";
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    drawBackgroundImage(); // Dibuja la imagen de fondo antes de dibujar el estado del juego
     drawMatrix(arena, { x: 0, y: 0 });
     drawMatrix(player.matrix, player.pos);
 }
